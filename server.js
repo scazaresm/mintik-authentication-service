@@ -17,14 +17,13 @@
 // Any license notice or attribution required by the License must also
 // include this Commons Clause License Condition notice.
 //
-// Software: prod-design-services
+// Software: mintik-authentication-service
 // License: MIT License
 // Licensor: Sergio Cazares
-// Commons Clause License URL: https://github.com/scazaresm/prod-design-services/blob/main/LICENSE
+// Commons Clause License URL: https://github.com/scazaresm/mintik-authentication-service/blob/main/LICENSE
 
 const db = require('./db');
 const express = require('express');
-const cors = require('cors');
 
 const app = express();
 const PORT = process.env.APP_PORT;
@@ -35,8 +34,6 @@ const refreshTokenRoute = require('./routes/refreshToken');
 const authenticateTokenRoute = require('./routes/authenticateToken');
 const userDetailsRoute = require('./routes/userDetails');
 
-// Use the cors middleware with default options (allows all origins)
-app.use(cors());
 app.use(express.json());
 app.use('/login', loginRoute);
 app.use('/register', registerRoute);

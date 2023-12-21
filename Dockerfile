@@ -10,7 +10,6 @@ COPY package*.json ./
 # Install application dependencies
 RUN npm install express && \
   npm install express-validator && \
-  npm install cors && \
   npm install mongoose && \
   npm install node-gyp && \
   npm install bcrypt && \

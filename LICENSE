@@ -1,0 +1,39 @@
+Commons Clause License
+
+This software and its source code (the "Software") are provided to you
+("Licensee") by Sergio Cazares Martinez (the "Licensor") under the terms
+of the Commons Clause License, version 1.0 (the "License"). 
+You may not use, modify, or distribute the Software except as expressly 
+permitted under the License.
+
+1. License Grant:
+   The Licensor grants Licensee a worldwide, non-exclusive, royalty-free,
+   non-transferable, non-sublicensable, and limited license to use, copy,
+   modify, and distribute the Software, subject to the conditions specified
+   in this License.
+
+2. Limitation on Commercialization:
+   Licensee's rights under this License will not include the right to sell,
+   leverage, or otherwise commercialize the Software. For the purposes of
+   this License, "sell" means practicing any or all of the rights granted
+   under this License to provide to third parties, for a fee or other
+   consideration (including without limitation fees for hosting or
+   consulting/support services related to the Software), a product or
+   service whose value derives, entirely or substantially, from the
+   functionality of the Software.
+
+3. Attribution:
+   Licensee agrees to include this Commons Clause License notice in all
+   copies or substantial portions of the Software, including in source code,
+   documentation, and other materials provided with the Software.
+
+4. No Warranty:
+   The Software is provided "as is," without warranty of any kind, express
+   or implied, including but not limited to the warranties of merchantability,
+   fitness for a particular purpose, and non-infringement. The Licensor and
+   contributors are not liable for any damages or liabilities arising from
+   the use, misuse, or inability to use the Software.
+
+Software: mintik-authentication-service
+License: Commons Clause License
+Licensor: Sergio Cazares Martinez
