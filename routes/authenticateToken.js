@@ -38,7 +38,7 @@ router.get('/', authenticateToken = async (req, res) => {
     });
   }
 
-  jwt.verifyAsync(token, process.env.API_SECRET, async (err, user) => {
+  jwt.verify(token, process.env.API_SECRET, async (err, user) => {
     if (err) {
       return res.status(403).json({
         error:
