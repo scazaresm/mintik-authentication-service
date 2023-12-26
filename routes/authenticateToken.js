@@ -38,7 +38,7 @@ router.get('/', authenticateToken = async (req, res) => {
     });
   }
 
-  jwt.verify(token, process.env.API_SECRET, async (err, user) => {
+  jwt.verifyAsync(token, process.env.API_SECRET, async (err, user) => {
     if (err) {
       return res.status(403).json({
         error:
@@ -46,12 +46,12 @@ router.get('/', authenticateToken = async (req, res) => {
       });
     }
     const userDetails = await User.findById(user.userId);
-    if (!userDetails) { 
+    if (!userDetails) {
       return res.status(500).json({
         error:
           'Failed to retrieve user details in authentication service.',
       });
-    } 
+    }
     return res.status(200).json({
       id: userDetails._id,
       email: userDetails.email,
@@ -59,7 +59,7 @@ router.get('/', authenticateToken = async (req, res) => {
       firstName: userDetails.firstName,
       lastName: userDetails.lastName,
       displayName: userDetails.displayName,
-      fullName: `${userDetails.firstName} ${userDetails.lastName}`
+      fullName: `${userDetails.firstName} ${userDetails.lastName}`,
     });
   });
 });

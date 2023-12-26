@@ -47,9 +47,9 @@ app.listen(PORT, () => {
     console.error('MongoDB connection error:', error);
     process.exit(1);
   });
-  
+
   db.once('open', () => {
     console.log('Connected to MongoDB');
-  });  
+  });
 });
 

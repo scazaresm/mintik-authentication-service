@@ -43,7 +43,7 @@ router.post('/',
       }
 
       const {
-        email, 
+        email,
         password,
         role,
         firstName,
@@ -59,12 +59,12 @@ router.post('/',
         }
 
         const newUser = new User({
-          email, 
+          email,
           password,
           role,
           firstName,
           lastName,
-          displayName
+          displayName,
         });
         await newUser.save();
 
