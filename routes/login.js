@@ -62,6 +62,7 @@ router.post('/', async (req, res) => {
         lastName: user.lastName,
         displayName: user.displayName,
         fullName: `${user.firstName} ${user.lastName}`,
+        hasInitialPassword: user.hasInitialPassword,
       },
       token,
     });

@@ -8,12 +8,15 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install application dependencies
-RUN npm install express && \
-  npm install express-validator && \
-  npm install mongoose && \
-  npm install node-gyp && \
-  npm install bcrypt && \
-  npm install jsonwebtoken
+RUN npm install \
+  express \
+  express-validator \
+  mongoose \
+  node-gyp \
+  bcrypt \
+  jsonwebtoken \
+  axios
+
 
 # Copy the rest of the application source code to the working directory
 COPY . .

@@ -26,15 +26,47 @@ const express = require('express');
 const {check, validationResult} = require('express-validator');
 const router = express.Router();
 
+const buildUserDetails = require('./utils/buildUserDetails');
+const generateRandomPassword = require('./utils/generateRandomPassword');
+
+const axios = require('axios');
+
 const User = require('../models/User');
+
+async function enqueueEmailNotification(data) {
+  try {
+    const {
+      req,
+      displayName,
+      email,
+      initialPassword,
+    } = data;
+
+    const apiUrl = process.env.MAILER_SERVICE_URL;
+    const headers = {'Authorization': req.headers.authorization};
+    const postData = {
+      templateName: 'Welcome',
+      contentVariables: [
+        `#{DisplayName}=${displayName}`,
+        `#{Email}=${email}`,
+        `#{InitialPassword}=${initialPassword}`,
+      ],
+      subject: 'Welcome to Mechanical Sync!',
+      to: [email],
+    };
+    await axios.post(`${apiUrl}/jobs`, postData, {headers});
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 router.post('/',
     [
       check('email').isLength({min: 5}).withMessage('email lenght shall be 5 at least'),
-      check('password').isLength({min: 6}).withMessage('password lenght shall be 6 at least'),
-      check('firstName').isLength({min: 1}).withMessage('firstName is required'),
-      check('firstName').isLength({min: 1}).withMessage('lastName is required'),
+      check('role').isLength({min: 1}).withMessage('role is required'),
+      check('lastName').isLength({min: 1}).withMessage('lastName is required'),
       check('displayName').isLength({min: 1}).withMessage('displayName is required'),
+      check('enabled').isBoolean().withMessage('enabled is required and shall be a boolean'),
     ],
     async (req, res) => {
       const errors = validationResult(req);
@@ -44,11 +76,11 @@ router.post('/',
 
       const {
         email,
-        password,
         role,
         firstName,
         lastName,
         displayName,
+        enabled,
       } = req.body;
 
       try {
@@ -58,17 +90,30 @@ router.post('/',
           return res.status(400).json({errors: ['User already exists']});
         }
 
+        const initialPassword = generateRandomPassword(6);
+
         const newUser = new User({
           email,
-          password,
+          password: initialPassword,
           role,
           firstName,
           lastName,
           displayName,
+          enabled,
+          hasInitialPassword: true,
         });
         await newUser.save();
 
-        res.status(201).json({message: 'User registered successfully'});
+        // enqueue email notification asynchronously
+        enqueueEmailNotification({
+          req,
+          displayName: newUser.displayName,
+          email: newUser.email,
+          initialPassword,
+        });
+
+        const userDetails = buildUserDetails(newUser);
+        res.status(201).json(userDetails);
       } catch (err) {
         console.error('Error during registration:', err);
         res.status(500).json({errors: [`Internal server error: ${err}`]});

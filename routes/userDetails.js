@@ -27,19 +27,9 @@ const jwt = require('jsonwebtoken');
 const express = require('express');
 const router = express.Router();
 
-const User = require('../models/User');
+const buildUserDetails = require('./utils/buildUserDetails');
 
-function buildUserDetails(user) {
-  return {
-    id: user._id,
-    email: user.email,
-    role: user.role,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    displayName: user.displayName,
-    fullName: `${user.firstName} ${user.lastName}`,
-  };
-}
+const User = require('../models/User');
 
 router.get('/', async (req, res) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -68,7 +58,7 @@ router.get('/', async (req, res) => {
       return res.status(200).json(buildUserDetails(user));
     }
 
-    const allUsers = await User.find({});
+    const allUsers = await User.find({role: {$ne: 'Root'}});
     const allUserDetails = allUsers.map((user) => buildUserDetails(user));
 
     return res.status(200).json(allUserDetails);

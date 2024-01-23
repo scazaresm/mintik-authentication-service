@@ -28,10 +28,12 @@ const bcrypt = require('bcrypt');
 const userSchema = new mongoose.Schema({
   email: {type: String, required: true, unique: true},
   password: {type: String, required: true},
-  role: {type: String, enum: ['user', 'admin'], default: 'user'},
+  role: {type: String, enum: ['Admin', 'Designer', 'Viewer', 'Root'], default: 'Designer'},
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   displayName: {type: String, required: true},
+  enabled: {type: Boolean, default: true},
+  hasInitialPassword: {type: Boolean, default: true},
 });
 
 // Hash user password before saving
