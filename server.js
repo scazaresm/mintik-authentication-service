@@ -34,6 +34,8 @@ const refreshTokenRoute = require('./routes/refreshToken');
 const authenticateTokenRoute = require('./routes/authenticateToken');
 const userDetailsRoute = require('./routes/userDetails');
 const changeInitialPasswordRoute = require('./routes/changeInitialPassword');
+const resetPassword = require('./routes/resetPassword');
+const updateUser = require('./routes/updateUser');
 
 const User = require('./models/User');
 
@@ -44,6 +46,8 @@ app.use('/refresh-token', refreshTokenRoute);
 app.use('/authenticate-token', authenticateTokenRoute);
 app.use('/user-details', userDetailsRoute);
 app.use('/change-initial-password', changeInitialPasswordRoute);
+app.use('/reset-password', resetPassword);
+app.use('/update-user', updateUser);
 
 const ROOT_USERNAME = 'root';
 const ROOT_FIRST_NAME = 'Default';
