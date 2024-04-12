@@ -36,6 +36,7 @@ const userDetailsRoute = require('./routes/userDetails');
 const changeInitialPasswordRoute = require('./routes/changeInitialPassword');
 const resetPassword = require('./routes/resetPassword');
 const updateUser = require('./routes/updateUser');
+const healthCheck = require('./routes/healthCheck');
 
 const User = require('./models/User');
 
@@ -48,6 +49,7 @@ app.use('/user-details', userDetailsRoute);
 app.use('/change-initial-password', changeInitialPasswordRoute);
 app.use('/reset-password', resetPassword);
 app.use('/update-user', updateUser);
+app.use('/health', healthCheck);
 
 const ROOT_USERNAME = 'root';
 const ROOT_FIRST_NAME = 'Default';
